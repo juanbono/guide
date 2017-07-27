@@ -43,4 +43,8 @@ before_script:
 - sleep 15
 
 script:
- - stack $ARGS --no-terminal --install-ghc build --test
+ - stack setup --no-terminal
+ - stack update --no-terminal
+ - stack build --no-terminal
+ - travis_wait 45 sleep 1800 &
+ - stack test --no-terminal

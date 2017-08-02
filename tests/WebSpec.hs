@@ -44,7 +44,7 @@ tests = run $ do
   markdownTests
 
 mainPageTests :: Spec
-mainPageTests = session "main page" $ using [chromeCaps] $ do
+mainPageTests = session "main page" $ using [allCaps] $ do
   openGuide "/"
   wd "is initially empty" $ do
     checkPresent "#categories"
@@ -77,7 +77,7 @@ mainPageTests = session "main page" $ using [chromeCaps] $ do
       height `shouldBeInRange` (71, 140)
 
 categoryTests :: Spec
-categoryTests = session "categories" $ using [chromeCaps] $ do
+categoryTests = session "categories" $ using [allCaps] $ do
   openGuide "/"
   wd "add a new category" $ do
     createCategory "Some category"
@@ -247,7 +247,7 @@ categoryTests = session "categories" $ using [chromeCaps] $ do
       "body" `shouldHaveText` "500 - Internal Server Error\npowered by Spock"
 
 itemTests :: Spec
-itemTests = session "items" $ using [chromeCaps] $ do
+itemTests = session "items" $ using [allCaps] $ do
   openGuide "/"
   wd "create a test category" $ do
     createCategory "Item test category"
@@ -431,7 +431,7 @@ itemTests = session "items" $ using [chromeCaps] $ do
 -- TODO: tests for merging-on-conflicts
 
 markdownTests :: Spec
-markdownTests = session "markdown" $ using [chromeCaps] $ do
+markdownTests = session "markdown" $ using [allCaps] $ do
   openGuide "/"
   describe "Markdown isn't allowed in category names" $ do
     wd "when creating a category" $ do
@@ -632,7 +632,7 @@ run ts = do
 
 _site :: IO ()
 _site = run $ do
-  session "_" $ using [chromeCaps] $ do
+  session "_" $ using [allCaps] $ do
     wd "_" $ do
       openGuidePage "/"
       _pause

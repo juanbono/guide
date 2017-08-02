@@ -28,7 +28,7 @@ before_install:
 - export PATH=$HOME/.local/bin:$PATH
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
-- wget http://chromedriver.storage.googleapis.com/2.9/chromedriver_linux64.zip
+- wget http://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip
 - chmod +x chromedriver
 - sudo mv -f chromedriver /usr/local/share/chromedriver
@@ -36,7 +36,7 @@ before_install:
 - sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
 before_script:
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8080 &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 - sleep 10
 - export DISPLAY=:99.0
 - travis_retry wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar

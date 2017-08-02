@@ -36,15 +36,13 @@ before_install:
 - sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
 before_script:
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=4444 http://localhost &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=8080 http://localhost &
 - sleep 10
 - export DISPLAY=:99.0
 - travis_retry wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 - java -jar selenium-server-standalone-2.53.1.jar 2> /dev/null &
-- sleep 15
+- sleep 25
 
 script:
- - whereis google-chrome-stable
- - whereis chromedriver
  - stack $ARGS --no-terminal --install-ghc build --test
  - scripts/test-official.sh $ARGS

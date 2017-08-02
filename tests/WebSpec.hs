@@ -39,9 +39,9 @@ import Guide.Config (Config(..))
 tests :: IO ()
 tests = run $ do
   mainPageTests
-  categoryTests
-  itemTests
-  markdownTests
+--  categoryTests
+--  itemTests
+--  markdownTests
 
 mainPageTests :: Spec
 mainPageTests = session "main page" $ using [chromeCaps] $ do
@@ -619,7 +619,7 @@ run ts = do
           _discussLink   = Just "http://discuss.link" }
         -- Using a delay so that “Spock is running on port 8080” would be
         -- printed before the first test.
-        threadDelay 100000
+        threadDelay 300000
         return tid
   let finalise tid = do
         killThread tid

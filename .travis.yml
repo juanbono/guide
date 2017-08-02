@@ -29,7 +29,7 @@ before_install:
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 before_script:
-- sgoogle-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 - sleep 10
 - export DISPLAY=:99.0
 - travis_retry wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar

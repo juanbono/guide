@@ -27,6 +27,8 @@ import Control.Monad.Catch
 import Selenium
 import qualified Test.WebDriver.Common.Keys as Key
 
+import Test.WebDriver (browser, chrome, handlesAlerts, defaultCaps)
+
 -- Site
 import qualified Guide.Main
 import Guide.Config (Config(..))
@@ -43,8 +45,10 @@ tests = run $ do
 --  itemTests
 --  markdownTests
 
+chromeCaps2 = defaultCaps { browser = chrome, handlesAlerts = Just True }
+
 mainPageTests :: Spec
-mainPageTests = session "main page" $ using [chromeCaps] $ do
+mainPageTests = session "main page" $ using [chromeCaps2] $ do
   openGuide "/"
   wd "is initially empty" $ do
     checkPresent "#categories"
@@ -77,7 +81,7 @@ mainPageTests = session "main page" $ using [chromeCaps] $ do
       height `shouldBeInRange` (71, 140)
 
 categoryTests :: Spec
-categoryTests = session "categories" $ using [chromeCaps] $ do
+categoryTests = session "categories" $ using [chromeCaps2] $ do
   openGuide "/"
   wd "add a new category" $ do
     createCategory "Some category"
@@ -247,7 +251,7 @@ categoryTests = session "categories" $ using [chromeCaps] $ do
       "body" `shouldHaveText` "500 - Internal Server Error\npowered by Spock"
 
 itemTests :: Spec
-itemTests = session "items" $ using [chromeCaps] $ do
+itemTests = session "items" $ using [chromeCaps2] $ do
   openGuide "/"
   wd "create a test category" $ do
     createCategory "Item test category"
@@ -431,7 +435,7 @@ itemTests = session "items" $ using [chromeCaps] $ do
 -- TODO: tests for merging-on-conflicts
 
 markdownTests :: Spec
-markdownTests = session "markdown" $ using [chromeCaps] $ do
+markdownTests = session "markdown" $ using [chromeCaps2] $ do
   openGuide "/"
   describe "Markdown isn't allowed in category names" $ do
     wd "when creating a category" $ do
@@ -632,7 +636,7 @@ run ts = do
 
 _site :: IO ()
 _site = run $ do
-  session "_" $ using [chromeCaps] $ do
+  session "_" $ using [chromeCaps2] $ do
     wd "_" $ do
       openGuidePage "/"
       _pause

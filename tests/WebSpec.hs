@@ -27,7 +27,7 @@ import Control.Monad.Catch
 import Selenium
 import qualified Test.WebDriver.Common.Keys as Key
 
-import Test.WebDriver (Capabilities (..), chrome, defaultCaps, unexpectedAlertBehavior)
+import Test.WebDriver (Capabilities (..), chrome, defaultCaps, unexpectedAlertBehavior, handlesAlerts)
 import Test.WebDriver.Types (UnexpectedAlertBehavior (..))
 
 -- Site
@@ -46,7 +46,11 @@ tests = run $ do
 --  itemTests
 --  markdownTests
 
-chromeCaps2 = defaultCaps { browser = chrome, unexpectedAlertBehavior = Just AcceptAlert }
+chromeCaps2 = defaultCaps 
+  { browser = chrome
+  , unexpectedAlertBehavior = Just AcceptAlert
+  , handlesAlerts = Just True 
+  }
 
 mainPageTests :: Spec
 mainPageTests = session "main page" $ using [chromeCaps2] $ do
